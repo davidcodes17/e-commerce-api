@@ -1,0 +1,37 @@
+<main
+  style="
+    font-family: 'Barlow', monospace, sans-serif;
+    line-height: 1.75;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  "
+>
+  <section
+    style="
+      max-width: 500px;
+      padding: 20px;
+      background-color: rgb(252, 252, 252);
+      border-radius: 5px;
+      width: 80%;
+      margin: auto;
+    "
+  >
+    <%- include("includes/header", {URL, name}); %>
+    <div class="">
+      <p style="margin: 10px 0">
+        Welcome to Cart Royal – your go-to destination for quality and
+        convenience! Shop with confidence, knowing your transactions are secure.
+      </p>
+      <p style="margin: 10px 0">
+        Enjoy exploring our curated selection of products. As a thank you,
+        here's a special 20% discount code for your first purchase: [WELCOME20].
+      </p>
+    </div>
+    
+    <%- include("includes/banner", {URL}); %>
+    <p style="padding: 20px 0">  If you didn't request this, please ignore this email – your account is still secure.   If you did not sign up for an account, please ignore this email.
+    </p>
+    <%-include("includes/footer", {URL}); %>
+  </section>
+</main>

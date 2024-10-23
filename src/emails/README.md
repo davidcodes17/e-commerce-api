@@ -1,0 +1,1 @@
+## Thsi folder contains all email templates in ejs format
