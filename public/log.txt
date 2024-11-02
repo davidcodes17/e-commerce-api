@@ -167,3 +167,39 @@
         _________________________________________________________________________
         
         
+        ___________________________ Thu, 24 Oct 2024 13:37:30 GMT ___________________________
+        
+        {}
+        _________________________________________________________________________
+        
+        
+        ___________________________ Thu, 24 Oct 2024 13:37:35 GMT ___________________________
+        
+        {}
+        _________________________________________________________________________
+        
+        
+        ___________________________ Thu, 24 Oct 2024 13:37:44 GMT ___________________________
+        
+        {}
+        _________________________________________________________________________
+        
+        
+        ___________________________ Tue, 29 Oct 2024 15:09:12 GMT ___________________________
+        
+        {"name":"SequelizeDatabaseError","parent":{"length":173,"name":"error","severity":"ERROR","code":"42703","hint":"Perhaps you meant to reference the column \"carts.totalprice\".","position":"43","file":"parse_relation.c","line":"3656","routine":"errorMissingColumn","sql":"SELECT \"product_id\", \"quantity\", \"price\", \"totalPrice\", \"createdAt\" FROM \"carts\" AS \"carts\" WHERE \"carts\".\"user_id\" = '8cVHmsleVbkLPmuZZeHqD';"},"original":{"length":173,"name":"error","severity":"ERROR","code":"42703","hint":"Perhaps you meant to reference the column \"carts.totalprice\".","position":"43","file":"parse_relation.c","line":"3656","routine":"errorMissingColumn","sql":"SELECT \"product_id\", \"quantity\", \"price\", \"totalPrice\", \"createdAt\" FROM \"carts\" AS \"carts\" WHERE \"carts\".\"user_id\" = '8cVHmsleVbkLPmuZZeHqD';"},"sql":"SELECT \"product_id\", \"quantity\", \"price\", \"totalPrice\", \"createdAt\" FROM \"carts\" AS \"carts\" WHERE \"carts\".\"user_id\" = '8cVHmsleVbkLPmuZZeHqD';","parameters":{}}
+        _________________________________________________________________________
+        
+        
+        ___________________________ Tue, 29 Oct 2024 15:15:22 GMT ___________________________
+        
+        {"name":"SequelizeDatabaseError","parent":{"length":173,"name":"error","severity":"ERROR","code":"42703","hint":"Perhaps you meant to reference the column \"carts.totalprice\".","position":"43","file":"parse_relation.c","line":"3656","routine":"errorMissingColumn","sql":"SELECT \"product_id\", \"quantity\", \"price\", \"totalPrice\", \"createdAt\" FROM \"carts\" AS \"carts\" WHERE \"carts\".\"user_id\" = '8cVHmsleVbkLPmuZZeHqD';"},"original":{"length":173,"name":"error","severity":"ERROR","code":"42703","hint":"Perhaps you meant to reference the column \"carts.totalprice\".","position":"43","file":"parse_relation.c","line":"3656","routine":"errorMissingColumn","sql":"SELECT \"product_id\", \"quantity\", \"price\", \"totalPrice\", \"createdAt\" FROM \"carts\" AS \"carts\" WHERE \"carts\".\"user_id\" = '8cVHmsleVbkLPmuZZeHqD';"},"sql":"SELECT \"product_id\", \"quantity\", \"price\", \"totalPrice\", \"createdAt\" FROM \"carts\" AS \"carts\" WHERE \"carts\".\"user_id\" = '8cVHmsleVbkLPmuZZeHqD';","parameters":{}}
+        _________________________________________________________________________
+        
+        
+        ___________________________ Tue, 29 Oct 2024 15:15:22 GMT ___________________________
+        
+        {"name":"SequelizeDatabaseError","parent":{"length":173,"name":"error","severity":"ERROR","code":"42703","hint":"Perhaps you meant to reference the column \"carts.totalprice\".","position":"43","file":"parse_relation.c","line":"3656","routine":"errorMissingColumn","sql":"SELECT \"product_id\", \"quantity\", \"price\", \"totalPrice\", \"createdAt\" FROM \"carts\" AS \"carts\" WHERE \"carts\".\"user_id\" = '8cVHmsleVbkLPmuZZeHqD';"},"original":{"length":173,"name":"error","severity":"ERROR","code":"42703","hint":"Perhaps you meant to reference the column \"carts.totalprice\".","position":"43","file":"parse_relation.c","line":"3656","routine":"errorMissingColumn","sql":"SELECT \"product_id\", \"quantity\", \"price\", \"totalPrice\", \"createdAt\" FROM \"carts\" AS \"carts\" WHERE \"carts\".\"user_id\" = '8cVHmsleVbkLPmuZZeHqD';"},"sql":"SELECT \"product_id\", \"quantity\", \"price\", \"totalPrice\", \"createdAt\" FROM \"carts\" AS \"carts\" WHERE \"carts\".\"user_id\" = '8cVHmsleVbkLPmuZZeHqD';","parameters":{}}
+        _________________________________________________________________________
+        
+        

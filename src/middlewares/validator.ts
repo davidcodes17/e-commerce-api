@@ -3,12 +3,13 @@ import { body, query, validationResult } from "express-validator";
 import mainConfig from "../config/main";
 // import becomeSeller from "../controllers/sellers/becomeSeller";
 
-
 export const waitlistValidator = [
   body("email").trim().normalizeEmail().isEmail().withMessage("Invalid Email"),
-  body("type").trim().matches(/(^(seller)$|^(buyer)$)/i).withMessage("type Must be a Seller or Buyer")
-]
-
+  body("type")
+    .trim()
+    .matches(/(^(seller)$|^(buyer)$)/i)
+    .withMessage("type Must be a Seller or Buyer"),
+];
 
 const currencyValidator = body("currency", "Currency is Required")
   .trim()
@@ -155,7 +156,11 @@ export const checkOutValidator = [
     .withMessage(
       "Delivery Method can only be via Pick up Station or Home Delivery"
     ),
-    body("address_id").optional().trim().isNumeric({no_symbols:true}).withMessage("Invalid Address ID")
+  body("address_id")
+    .optional()
+    .trim()
+    .isNumeric({ no_symbols: true })
+    .withMessage("Invalid Address ID"),
 ];
 
 // address Validators
@@ -191,25 +196,27 @@ export const newAddressValidator = [
       min: 3,
     })
     .withMessage("Country must be more than 3 characters"),
-    body("region")
+  body("region")
     .trim()
     .isString()
     .isLength({
       min: 3,
     })
     .withMessage("Region must be more than 3 characters"),
-    body("city")
-      .trim()
-      .isString()
-      .isLength({
-        min: 3,
-      })
-      .withMessage("City must be more than 3 characters"),
+  body("city")
+    .trim()
+    .isString()
+    .isLength({
+      min: 3,
+    })
+    .withMessage("City must be more than 3 characters"),
 ];
 
-
- let updateAddressValidator =[]
- updateAddressValidator = Object.assign(updateAddressValidator, newAddressValidator)
+let updateAddressValidator = [];
+updateAddressValidator = Object.assign(
+  updateAddressValidator,
+  newAddressValidator
+);
 /*
   GENERAL VALIDATORS
 */
@@ -234,6 +241,5 @@ export {
   validationError,
   forgottenPasswordValidator,
   becomeSellerValidator,
-  updateAddressValidator
+  updateAddressValidator,
 };
-

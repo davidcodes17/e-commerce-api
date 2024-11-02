@@ -7,7 +7,7 @@ export const fetchCart = async (req: Request | any, type: "all" | "one"="one"):P
         user_id: req.user.uuid,
         // product_id: req.body.product_id,
       },
-      attributes:["product_id","quantity","price", "totalPrice", "createdAt"]
+      attributes:["product_id","quantity","price", "createdAt"]
     });
     return existing_cart;
   }

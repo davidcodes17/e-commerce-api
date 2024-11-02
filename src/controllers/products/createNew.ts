@@ -34,6 +34,8 @@ export default async (req: Request | any, res: Response) => {
       .then(async (images: Array<string>) => {
         const uploaded_other_images = images.join(",");
         const uploaded_thumbnail = thumbnailFly.secure_url;
+        // create category
+        // await
         const products = await Product.create({
           seller_id: req.user.uuid,
           name,

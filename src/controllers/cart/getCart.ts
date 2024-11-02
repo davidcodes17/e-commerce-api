@@ -11,6 +11,7 @@ export default async (req: Request, res: Response) => {
       data: carts,
     });
   } catch (error) {
+    console.log(error)
     return errorHandler(res, error);
   }
 };
