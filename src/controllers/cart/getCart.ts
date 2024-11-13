@@ -6,7 +6,6 @@ import errorHandler from "../../utils/errorHandler";
 export default async (req: Request, res: Response) => {
   try {
     const carts = await fetchCart(req, "all");
-    console.log(carts)
     return res.status(mainConfig.status.ok).json({
       msg: "All Carts Retrived",
       data: carts,

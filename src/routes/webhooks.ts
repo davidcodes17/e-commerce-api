@@ -3,6 +3,6 @@ import flutterCallback from "../controllers/webhooks/flutterCallback";
 
 const webhooksRoutes = Router();
 
-webhooksRoutes.get("/flutter", flutterCallback)
+webhooksRoutes.use("/flutter", flutterCallback)
 
 export default webhooksRoutes

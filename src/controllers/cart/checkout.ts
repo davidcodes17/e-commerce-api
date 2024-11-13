@@ -21,7 +21,7 @@ export default async (req: Request | any, res: Response) => {
       });
     }
 
-    let cart_details_str = ""
+    let cart_details_str = "";
     // get all carts information and calculate total price
     const cart_items = carts.map(async (cart) => {
       let totalPrice = 0;
@@ -35,15 +35,15 @@ export default async (req: Request | any, res: Response) => {
       if (get_product) {
         const product_details = get_product?.get();
         totalPrice += Number(product_details.price) * cart_details.quantity;
-        cart_details_str+=`${cart_details.quantity} ${product_details.name} for ${product_details.currency} ${totalPrice}, `
+        cart_details_str += `${cart_details.quantity} ${product_details.name} for ${product_details.currency} ${totalPrice}, `;
         return {
           product_id: cart_details.product_id,
           seller_id: product_details.seller_id,
           product_name: product_details.name,
           product_image: product_details.thumbnail,
           quantity: cart_details.quantity,
-          confirmed:false,
-          ready:false,
+          confirmed: false,
+          ready: false,
           totalPrice,
           singlePrice: Number(product_details.price),
           currency: product_details.currency,
@@ -57,8 +57,15 @@ export default async (req: Request | any, res: Response) => {
     for (const carts of all_cart) {
       // calculate all product sum
       // @Todo: calculate price based on product currency and checkout currency
+      if (!carts) {
+        return res.status(mainConfig.status.bad).json({
+          msg: `Could not verify some Products or Product does not exists`,
+        });
+      }
       const { product_id, quantity, totalPrice, currency } = carts;
       all_cart_sum += Number(totalPrice);
+
+
       const check_products = await Product.findOne({
         where: {
           uuid: product_id,
@@ -76,7 +83,7 @@ export default async (req: Request | any, res: Response) => {
       } else {
         console.log("Not Enough Quantity for: ", check_products?.get().name);
         return res.status(mainConfig.status.bad).json({
-          msg:`Not Enough Quantity for: ${check_products?.get().name}`
+          msg: `Not Enough Quantity for: ${check_products?.get().name}`,
         });
       }
     }
@@ -88,13 +95,13 @@ export default async (req: Request | any, res: Response) => {
     if (req.body.payment_method.toLowerCase() === "bank") {
       const pay_link = await FLW.PaymentLink({
         user_id: req.user.uuid,
-        uuid:UID,
+        uuid: UID,
         amount: String(all_cart_sum),
         currency: req.body.currency,
         meta: {
           user_id: req.user.uuid,
           user_avatar: req.user.avatar,
-          summary:cart_details_str,
+          summary: cart_details_str,
           // cart details
         },
         customer: {
@@ -106,47 +113,50 @@ export default async (req: Request | any, res: Response) => {
       if (pay_link) {
         // create a order in db with payment status of pending;
         const getDefaultAddress = await AddressBook.findOne({
-          where:{
-           user_id:req.user.uuid,
-           isDefault:true,
+          where: {
+            user_id: req.user.uuid,
+            isDefault: true,
           },
-          attributes:["id"]
-         });
-
-        const getAddressById = (req.body.address_id) && await AddressBook.findOne({
-         where:{
-          user_id:req.user.uuid,
-          id:req.body.address_id
-         },
-         attributes:["id"]
+          attributes: ["id"],
         });
 
+        const getAddressById =
+          req.body.address_id &&
+          (await AddressBook.findOne({
+            where: {
+              user_id: req.user.uuid,
+              id: req.body.address_id,
+            },
+            attributes: ["id"],
+          }));
 
         // console.log(getDefaultAddress, getAddressById)
-        if(!getAddressById && !getDefaultAddress){
+        if (!getAddressById && !getDefaultAddress) {
           return res.status(mainConfig.status.bad).json({
-            msg:"Default Address not Found, select an address to use or set a default address in Address Book"
-          })
+            msg: "Default Address not Found, select an address to use or set a default address in Address Book",
+          });
         }
 
-       const new_order = await Orders.create({
-          uuid:UID,
-          user_id:req.user.uuid,
-          order_data:all_cart,
-          amount:String(all_cart_sum),
-          payment_method:req.body.payment_method,
-          delivery_address_id:(getAddressById && getAddressById.get().id) || (getDefaultAddress && getDefaultAddress.get().id),
-          order_code:`${nanoid(6)}-${randomID()}`,
-        })
-        await new_order.save()
+        const new_order = await Orders.create({
+          uuid: UID,
+          user_id: req.user.uuid,
+          order_data: all_cart,
+          amount: String(all_cart_sum),
+          payment_method: req.body.payment_method,
+          delivery_address_id:
+            (getAddressById && getAddressById.get().id) ||
+            (getDefaultAddress && getDefaultAddress.get().id),
+          order_code: `${nanoid(6)}-${randomID()}`,
+        });
+        await new_order.save();
         // send notification to seller
         return res.status(mainConfig.status.ok).json({
           msg: "Payment Link Created",
           data: {
             // default_address:!!getDefaultAddress,
-            address_id:(getDefaultAddress||getAddressById).id,
+            address_id: (getDefaultAddress || getAddressById).id,
             link: pay_link.data.link,
-            order:UID,
+            order: UID,
           },
         });
       }
@@ -164,6 +174,7 @@ export default async (req: Request | any, res: Response) => {
       msg: "Could not Checkout",
     });
   } catch (error) {
+    console.log(error);
     return errorHandler(res, error);
   }
 };
