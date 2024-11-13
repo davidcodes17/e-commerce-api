@@ -1,7 +1,7 @@
 const mainConfig = {
   limit: "20mb",
   parameterLimit: 20000,
-  origin: "*",
+  origin: ["https://localhot:5173","https://all-star-communications.vercel.app", "https://nv97j2mv-5173.uks1.devtunnels.ms"],
 
   routes: {
     login: "/login",
