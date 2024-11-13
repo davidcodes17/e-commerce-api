@@ -54,7 +54,7 @@ export default async (req: Request, res: Response) => {
         // update order status
         await Orders.update(
           {
-            status: orderStatus.pending, //pending confirmation
+            status: orderStatus.paid, //pending confirmation
           },
           {
             where: {

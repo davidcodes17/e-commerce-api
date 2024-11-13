@@ -5,6 +5,7 @@ import { createId } from "@paralleldrive/cuid2";
 
 export enum orderStatus {
   placed = "order placed",
+  paid="paid",
   pending = "pending confirmation",
   shipped = "shipped",
   out = "out for delivery",
