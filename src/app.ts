@@ -53,6 +53,8 @@ import addWaitlist from "./controllers/waitlist";
 import { validationError, waitlistValidator } from "./middlewares/validator";
 import adminRoutes from "./routes/adminRoute";
 import { generateRandomProducts } from "./edge-cases/products";
+import verifyAdmin from "./middlewares/verifyAdmin";
+import verifyToken from "./middlewares/verifyToken";
 
 app.get("/", (_, res) => {
   res.send("Welcome to All Stars solutions 😁");
@@ -64,7 +66,7 @@ app.use("/address/", addressBookRoutes);
 app.use("/auth/", authRoutes);
 app.use("/user/", userRoutes);
 // app.use("/seller", sellerRoute);
-app.use("/admin", adminRoutes);
+app.use("/admin", verifyToken, verifyAdmin, adminRoutes);
 app.use("/product", productRoutes);
 app.use("/cart", cartRoutes);
 app.use("/webhooks", webhooksRoutes);

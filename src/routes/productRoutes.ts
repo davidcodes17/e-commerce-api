@@ -2,7 +2,6 @@ import { Router } from "express";
 import mainConfig from "../config/main";
 import verifyToken from "../middlewares/verifyToken";
 import verifySeller from "../middlewares/verifySeller";
-import createNew from "../controllers/products/createNew";
 import multer from "multer";
 import { newProductValidator, validationError } from "../middlewares/validator";
 import getProducts from "../controllers/products/getProducts";
@@ -28,15 +27,6 @@ export const productImages = upload.fields([
   { name: "other_images", maxCount: 4 },
 ]);
 
-productRoutes.post(
-  mainConfig.routes.newProduct,
-  verifyToken,
-  verifySeller,
-  newProductMulterHandler,
-  newProductValidator,
-  validationError,
-  createNew
-);
 
 // /product GET
 productRoutes.get("/",conditionVerify, getProducts);

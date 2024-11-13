@@ -203,3 +203,33 @@
         _________________________________________________________________________
         
         
+        ___________________________ Wed, 13 Nov 2024 13:34:55 GMT ___________________________
+        
+        {}
+        _________________________________________________________________________
+        
+        
+        ___________________________ Wed, 13 Nov 2024 13:34:55 GMT ___________________________
+        
+        {}
+        _________________________________________________________________________
+        
+        
+        ___________________________ Wed, 13 Nov 2024 13:35:19 GMT ___________________________
+        
+        {}
+        _________________________________________________________________________
+        
+        
+        ___________________________ Wed, 13 Nov 2024 13:35:37 GMT ___________________________
+        
+        {}
+        _________________________________________________________________________
+        
+        
+        ___________________________ Wed, 13 Nov 2024 13:48:31 GMT ___________________________
+        
+        {"name":"SequelizeValidationError","errors":[{"message":"address-book.firstName cannot be null","type":"notNull Violation","path":"firstName","value":null,"origin":"CORE","instance":{"country":"Nigeria","id":null,"user_id":"XkQsmnAsqJUEUI2UV5XjU","uuid":"jqgz5fWilDHcxGOemTE02","isDefault":true,"updatedAt":"2024-11-13T13:48:31.542Z","createdAt":"2024-11-13T13:48:31.542Z"},"validatorKey":"is_null","validatorName":null,"validatorArgs":[]},{"message":"address-book.lastName cannot be null","type":"notNull Violation","path":"lastName","value":null,"origin":"CORE","instance":{"country":"Nigeria","id":null,"user_id":"XkQsmnAsqJUEUI2UV5XjU","uuid":"jqgz5fWilDHcxGOemTE02","isDefault":true,"updatedAt":"2024-11-13T13:48:31.542Z","createdAt":"2024-11-13T13:48:31.542Z"},"validatorKey":"is_null","validatorName":null,"validatorArgs":[]},{"message":"address-book.phone cannot be null","type":"notNull Violation","path":"phone","value":null,"origin":"CORE","instance":{"country":"Nigeria","id":null,"user_id":"XkQsmnAsqJUEUI2UV5XjU","uuid":"jqgz5fWilDHcxGOemTE02","isDefault":true,"updatedAt":"2024-11-13T13:48:31.542Z","createdAt":"2024-11-13T13:48:31.542Z"},"validatorKey":"is_null","validatorName":null,"validatorArgs":[]},{"message":"address-book.region cannot be null","type":"notNull Violation","path":"region","value":null,"origin":"CORE","instance":{"country":"Nigeria","id":null,"user_id":"XkQsmnAsqJUEUI2UV5XjU","uuid":"jqgz5fWilDHcxGOemTE02","isDefault":true,"updatedAt":"2024-11-13T13:48:31.542Z","createdAt":"2024-11-13T13:48:31.542Z"},"validatorKey":"is_null","validatorName":null,"validatorArgs":[]},{"message":"address-book.city cannot be null","type":"notNull Violation","path":"city","value":null,"origin":"CORE","instance":{"country":"Nigeria","id":null,"user_id":"XkQsmnAsqJUEUI2UV5XjU","uuid":"jqgz5fWilDHcxGOemTE02","isDefault":true,"updatedAt":"2024-11-13T13:48:31.542Z","createdAt":"2024-11-13T13:48:31.542Z"},"validatorKey":"is_null","validatorName":null,"validatorArgs":[]}]}
+        _________________________________________________________________________
+        
+        

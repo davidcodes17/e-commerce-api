@@ -22,7 +22,7 @@ const mainConfig = {
     sellerProfile: "/profile",
     sellerProfileAvatar: "/profile/avatar",
 
-    newProduct: "/new",
+    newProduct: "/product/new",
 
     addCart: "/add",
     checkout: "/checkout",

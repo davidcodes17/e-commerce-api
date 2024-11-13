@@ -32,6 +32,7 @@ const verifyToken = async (req: any, res: Response, next: NextFunction) => {
               phone,
               email,
               _2FA,
+              role,
               locale,
               avatarId,
               avatar,
@@ -49,6 +50,7 @@ const verifyToken = async (req: any, res: Response, next: NextFunction) => {
               phone,
               email,
               _2FA,
+              role: role == 0 ? "admin" : role == 1 ? "moderator" : "user",
               locale,
               avatar: !avatarId
                 ? process.env.BACKEND_BASE_URL + avatar
@@ -64,7 +66,7 @@ const verifyToken = async (req: any, res: Response, next: NextFunction) => {
               req.user = clientUser;
               return next();
             }
-            
+
             return res.status(mainConfig.status.unauthorized).json({
               msg: "Could not complete request",
             });

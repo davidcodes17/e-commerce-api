@@ -10,15 +10,15 @@ const verifySeller = async (
   next: NextFunction
 ) => {
   try {
-    const user_is_seller = await User.findOne({
-      where: {
-        root: true,
-      },
-    });
+    // const user_is_seller = await User.findOne({
+    //   where: {
+    //     root: true,
+    //   },
+    // });
 
-    if (user_is_seller) {
-      return next();
-    }
+    // if (user_is_seller) {
+    //   return next();
+    // }
 
     return res.status(mainConfig.status.unauthorized).json({
       msg: "Unauthorized",
