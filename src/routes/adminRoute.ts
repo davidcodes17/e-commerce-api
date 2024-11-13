@@ -6,6 +6,7 @@ import { newProductValidator, validationError } from "../middlewares/validator";
 import createNew from "../controllers/admin/createNew";
 import deleteProduct from "../controllers/admin/deleteProduct";
 import updateProduct from "../controllers/admin/updateProduct";
+import getAllUsers from "../controllers/admin/getAllUsers";
 
 const adminRoutes = Router();
 
@@ -19,5 +20,6 @@ adminRoutes.post(
 
 adminRoutes.delete(mainConfig.routes.deleteProduct, deleteProduct);
 adminRoutes.put(mainConfig.routes.updateProduct, updateProduct);
+adminRoutes.get(mainConfig.routes.allUsers, getAllUsers);
 
 export default adminRoutes;

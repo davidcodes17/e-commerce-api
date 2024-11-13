@@ -2,6 +2,7 @@ const mainConfig = {
   limit: "20mb",
   parameterLimit: 20000,
   origin: "*",
+  MAX_LIMIT:50,
 
   routes: {
     login: "/login",
@@ -20,6 +21,7 @@ const mainConfig = {
 
     newProduct: "/product/new",
     updateProduct: "/product/update",
+    allUsers: "/users",
     deleteProduct: "/product/delete/:id",
 
     addCart: "/add",
