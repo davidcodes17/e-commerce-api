@@ -7,9 +7,7 @@ export default async (req: Request, res: Response) => {
     const token = await generate({
       _id: req.user as string,
     });
-    res.redirect(
-      `${process.env.FRONTEND_BASE_URL}/auth/login?code=${token}&type=google`
-    );
+    res.redirect(`${process.env.FRONTEND_BASE_URL}?code=${token}&type=google`);
   } catch (error) {
     return errorHandler(res, error);
   }
