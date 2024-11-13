@@ -1,7 +1,11 @@
 const mainConfig = {
   limit: "20mb",
   parameterLimit: 20000,
-  origin: ["https://localhot:5173","https://all-star-communications.vercel.app", "https://nv97j2mv-5173.uks1.devtunnels.ms"],
+  origin: [
+    "http://localhot:5173",
+    "https://all-star-communications.vercel.app",
+    "https://nv97j2mv-5173.uks1.devtunnels.ms",
+  ],
 
   routes: {
     login: "/login",
@@ -12,23 +16,20 @@ const mainConfig = {
     googleCallback: "/google/callback",
 
     userProfile: "/profile", // GET | PUT
-    userUploadAvatar:"/upload/avatar",
+    userUploadAvatar: "/upload/avatar",
 
+    becomeSeller: "/become",
+    sellerProfile: "/profile",
+    sellerProfileAvatar: "/profile/avatar",
 
-    becomeSeller:"/become",
-    sellerProfile:"/profile",
-    sellerProfileAvatar:"/profile/avatar",
+    newProduct: "/new",
 
+    addCart: "/add",
+    checkout: "/checkout",
 
-    newProduct:"/new",
-
-    addCart:"/add",
-    checkout:"/checkout",
-
-
-    addAddressBook:"/add",
-    editAddressBook:"/edit/:id",
-    defaultAddressBook:"/default/:id",
+    addAddressBook: "/add",
+    editAddressBook: "/edit/:id",
+    defaultAddressBook: "/default/:id",
   },
   status: {
     // infomation
