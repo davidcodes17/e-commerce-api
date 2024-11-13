@@ -1,11 +1,7 @@
 const mainConfig = {
   limit: "20mb",
   parameterLimit: 20000,
-  origin: [
-    "http://localhot:5173",
-    "https://all-star-communications.vercel.app",
-    "https://nv97j2mv-5173.uks1.devtunnels.ms",
-  ],
+  origin: "*",
 
   routes: {
     login: "/login",
@@ -23,6 +19,8 @@ const mainConfig = {
     sellerProfileAvatar: "/profile/avatar",
 
     newProduct: "/product/new",
+    updateProduct: "/product/update",
+    deleteProduct: "/product/delete/:id",
 
     addCart: "/add",
     checkout: "/checkout",

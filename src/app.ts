@@ -17,10 +17,10 @@ const app = express();
 const logDrop = record(process.env.LOGDROP_API_KEY as string);
 
 // middlewares
+app.use(cors({ origin: mainConfig.origin }));
 app.disable("x-powered-by");
 app.use(express.static(path.join(__dirname, "../public")));
 app.use(helmet());
-app.use(cors({ origin: mainConfig.origin }));
 app.use(
   express.urlencoded({
     extended: true,
