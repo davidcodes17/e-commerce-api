@@ -11,34 +11,36 @@ export default async (
   res: Response,
   next: NextFunction
 ) => {
-  const { by, order, query, limit, offset } = req.query;
-  // byMe true | false :
-  // order desc | asc
-  //  query {string}
+  const { by, order, query, limit, page } = req.query;
 
   if (by && by != "name") {
     return res.status(mainConfig.status.bad).json({
       msg: "'By' Query Parameter must be 'name'",
     });
   }
+
   const by_filter: string = (by as string) || "name";
-  console.log(by_filter);
+  const itemsPerPage = Number(Math.min(limit || 5, mainConfig.MAX_LIMIT));
+  const currentPage = Number(page || 1);
+  const offset = (currentPage - 1) * itemsPerPage;
+
   try {
     const products = await Product.findAndCountAll({
       where: {
         [by_filter]: {
-          [Op.like]: (query || "") + "%",
+          [Op.like]: `${query || ""}%`,
         },
       },
-      limit: Number(Math.min(limit || 5, mainConfig.MAX_LIMIT)),
-      offset: Number(offset || 0),
+      limit: itemsPerPage,
+      offset,
     });
+
+    const totalPages = Math.ceil(products.count / itemsPerPage);
 
     const productsRow = await Promise.all(
       products.rows.map(async (p) => {
         const pr_data = p.get();
 
-        // Resolve the cart_info Promise
         const cart_info =
           req.user &&
           (await Cart.findOne({
@@ -59,19 +61,19 @@ export default async (
           category: pr_data.category,
           thumbnail: pr_data.thumbnail,
           percentage_discount: pr_data.percentage_discount,
-          cart: cart_info || null, // Assign cart_info or null if not found
+          cart: cart_info || null,
         };
       })
     );
 
     return res.status(mainConfig.status.ok).json({
-      msg: "Product Retrived",
-      warning: !req.user && "Invalid Autorization",
+      msg: "Products Retrieved",
+      warning: !req.user && "Invalid Authorization",
       data: {
-        limit: Number(limit || 5),
-        offset: Number(offset || 0),
-        pages: Math.floor(products.count / Number(limit || 5)),
-        total: products.count,
+        limit: itemsPerPage,
+        currentPage,
+        totalPages,
+        totalItems: products.count,
         products: productsRow,
       },
     });
