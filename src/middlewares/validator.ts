@@ -182,7 +182,7 @@ export const newAddressValidator = [
     .withMessage("Last Name must be more than 3 characters"),
   body("phone")
     .trim()
-    .isNumeric({ no_symbols: false })
+    isString()
     .withMessage("Invalid Phone"),
   body("additionalPhone")
     .optional()
