@@ -7,6 +7,11 @@ import Orders, { orderStatus } from "../../models/Order";
 import sendNotification from "../../utils/sendNotification";
 import { NotificationType } from "../../models/Notification";
 import User from "../../models/User";
+import AddressBook from "../../models/AddressBook";
+
+// WhatsApp service
+import { WhatsAppService } from "../../services/whatsapp.service";
+const whatsapp = new WhatsAppService();
 
 export default async (req: Request, res: Response) => {
   try {
@@ -18,23 +23,22 @@ export default async (req: Request, res: Response) => {
       });
 
       if (!transactionDetails) {
-        return res.status(mainConfig.status.notFound).json({
-          msg: "Transaction not Found | Checkout Again",
-        });
-      }
-      if (transactionDetails.get().status == "successful") {
-        return res.status(mainConfig.status.conflict).json({
-          msg: "Transaction already verified",
-        });
+        return res
+          .status(mainConfig.status.notFound)
+          .json({ msg: "Transaction not Found | Checkout Again" });
       }
 
-      // console.log(transactionDetails.get())
+      if (transactionDetails.get().status == "successful") {
+        return res
+          .status(mainConfig.status.conflict)
+          .json({ msg: "Transaction already verified" });
+      }
 
       const flw_verify = await flw.Transaction.verify({
         id: req.query.transaction_id,
       });
+
       if (flw_verify.status == "success") {
-        // console.log(flw_verify)
         await Transactions.update(
           {
             transaction_id: flw_verify.data.id,
@@ -44,48 +48,42 @@ export default async (req: Request, res: Response) => {
             amount_settled: flw_verify.data.amount_settled,
             ip: flw_verify.data.ip,
           },
-          {
-            where: {
-              ref: req.query.tx_ref,
-            },
-          }
+          { where: { ref: req.query.tx_ref } }
         );
-        console.log(transactionDetails.get().uuid);
-        // update order status
+
         await Orders.update(
-          {
-            status: orderStatus.paid, //pending confirmation
-          },
-          {
-            where: {
-              uuid: transactionDetails.get().uuid,
-            },
-          }
+          { status: orderStatus.paid },
+          { where: { uuid: transactionDetails.get().uuid } }
         );
-        // send notification to seller
 
         const userProfile = await User.findOne({
-          where: {
-            uuid: transactionDetails.get().user_id,
-          },
+          where: { uuid: transactionDetails.get().user_id },
           attributes: ["email", "uuid"],
         });
 
-        // get order details
         const orders = await Orders.findOne({
-          where: {
-            uuid: transactionDetails.get().uuid,
-          },
+          where: { uuid: transactionDetails.get().uuid },
         });
 
         const raw_order_data = orders?.get().order_data;
-
         const order_data =
           typeof raw_order_data == "string"
             ? JSON.parse(raw_order_data)
             : raw_order_data;
 
-        // sending notification start
+        // ✅ GET DELIVERY PHONE NUMBER FROM ADDRESS BOOK
+        const deliveryAddress = await AddressBook.findOne({
+          where: { id: orders?.get().delivery_address_id },
+        });
+
+        const deliveryPhone = deliveryAddress?.get().phone; // phone number to send WhatsApp to
+
+        // fallback: no phone found
+        if (!deliveryPhone) {
+          console.log("⚠ No phone number found in delivery address.");
+        }
+
+        // PLATFORM NOTIFICATIONS
         order_data.forEach(async (data) => {
           await sendNotification({
             type: NotificationType.transaction,
@@ -101,19 +99,29 @@ export default async (req: Request, res: Response) => {
           });
         });
 
-        // sending notification end
+        // 🟩 WHATSAPP NOTIFICATION TO BUYER (delivery phone)
+        if (deliveryPhone) {
+          await whatsapp.sendTextMessage(
+            deliveryPhone,
+            `Your payment is confirmed! 🎉\n\nOrder ID: ${
+              transactionDetails.get().uuid
+            }\nAmount: ${
+              flw_verify.data.amount
+            }\nStatus: Successful\n\nThank you for your purchase!`
+          );
+        }
 
         return res.status(mainConfig.status.ok).json({
           msg: "Transaction Completed",
         });
       }
-      console.log(flw_verify);
+
       return res.status(mainConfig.status.bad).json({
         msg: "Transaction could not be completed",
       });
     }
-    res.redirect("https://all-star-communications.com/failed")
-    // res.end();
+
+    res.redirect("https://all-star-communications.com/failed");
   } catch (error) {
     console.log(error);
     return errorHandler(res, error);
